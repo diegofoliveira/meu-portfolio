@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade </title>
+</head>
+
+<body>
+    <form>
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" />
+        </div>
+        <div>
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" />
+        </div>
+        <div>
+            <label for="cargo">Cargo:</label>
+            <select id="cargo">
+                <option value="Gerente">Gerente</option>
+                <option value="Desenvolvedor">Desenvolvedor</option>
+            </select>
+        </div>
+        <div>
+            <label for="departamento">Departamento:</label>
+            <input type="text" id="departamento" />
+        </div>
+        <div>
+            <label for="linguagem">Linguagem:</label>
+            <input type="text" id="linguagem" />
+        </div>
+        <input type="button" value="Clique Aqui" onclick="criarFuncionario()">
+
+    </form>
+</body>
+
+<script>
+    class Funcionario {
+        constructor(nome, idade, cargo) {
+            this.nome = nome;
+            this.idade = idade;
+            this.cargo = cargo;
+        }
+
+        seApresentar() {
+            alert(`meu nome é ${this.nome}, tenho ${this.idade} anos e tenho o cargo de ${this.cargo}`);
+        }
+
+        trabalhar() {
+            alert("Estou trabalhando");
+        }
+    }
+
+    class Gerente extends Funcionario {
+        constructor(nome, idade, cargo, departamento) {
+            super(nome, idade, cargo);
+            this.departamento = departamento;
+        }
+
+        gerenciar() {
+            alert(`${this.nome} esta gerenciando o departamento ${this.departamento}`)
+        }
+    }
+
+    class Desenvolvedor extends Funcionario {
+        constructor(nome, idade, cargo, linguagem) {
+            super(nome, idade, cargo);
+            this.linguagem = linguagem;
+        }
+
+        programar() {
+            alert(`${this.nome} esta programando ${this.linguagem}`)
+        }
+    };
+
+    function exibirErro(erro) {
+        alert(`erro ao criar o funcionario: ${erro.text}`);
+    }
+
+    function criarFuncionario() {
+        try {
+            var sel = document.getElementById("cargo");
+            var nome = document.getElementById("nome").value;
+            var idade = document.getElementById("idade").value;
+            var cargo = sel.options[sel.selectedIndex].text;
+            var linguagem = document.getElementById("linguagem").value;
+            var departamento = document.getElementById("departamento").value;
+
+            if (cargo == 'Gerente') {
+                gerente = new Gerente(nome, idade, cargo, departamento);
+                gerente.seApresentar();
+                gerente.trabalhar();
+                gerente.gerenciar();
+            } else {
+                desenvolvedor = new Desenvolvedor(nome, idade, cargo, linguagem);
+                desenvolvedor.seApresentar();
+                desenvolvedor.trabalhar();
+                desenvolvedor.programar();
+            }
+        } catch (error) {
+            exibirErro(error)
+        }
+
+    };
+
+</script>
+
+</html>
